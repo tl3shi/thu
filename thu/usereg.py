@@ -33,6 +33,7 @@ class Usereg:
         resp = self.opener.open(req)
         content = resp.read().decode('gbk')
         if content != 'ok':
+            print(content)
             raise Exception(content)
 
     def logout(self):
@@ -105,6 +106,12 @@ class Usereg:
             raise Exception(content)
         return content
 
+def checklogin():
+    try:
+        u = Usereg(username, password)
+    except Exception as e:
+        return e
+    return True
 
 def iplist():
     u = Usereg(username, password)
