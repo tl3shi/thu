@@ -10,7 +10,9 @@ thu usereg iplist
 thu usereg ipup x.x.x.x
 thu usereg ipdown x.x.x.x
 thu usereg ipdown 0/1/2
-    ''')
+
+thu user setuser
+''')
 
 if len(sys.argv) < 2:
     print_usage();

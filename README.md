@@ -12,3 +12,5 @@ Available commands:
     thu usereg ipup x.x.x.x
     thu usereg ipdown x.x.x.x
     thu usereg ipdown 0/1/2
+
+    thu user setuser
