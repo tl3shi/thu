@@ -14,3 +14,7 @@ Available commands:
     thu usereg ipdown 0/1/2
 
     thu user setuser
+
+TODO:
+from other login method(not command, like web, or else), the net usereg command
+look up the info the user stored in .thu
