@@ -7,7 +7,7 @@ from urllib.parse import urlencode
 from hashlib import md5
 from collections import namedtuple
 from bs4 import BeautifulSoup
-
+from urllib.request import urlopen, Request
 
 filename = os.path.join(os.environb[b'HOME'], b'.thu')
 
@@ -23,21 +23,19 @@ def _store(d, path = filename):
 BASE_URL = 'https://usereg.tsinghua.edu.cn/'
 
 def checklogin(username, password):
-    cj = CookieJar()
-    opener = build_opener(HTTPCookieProcessor(cj))
-    password = md5(password).hexdigest()
-    url = BASE_URL + 'do.php'
-    data = dict(
-            action = 'login',
-            user_login_name = username,
-            user_password = password
-            )
-    req = Request(url, urlencode(data).encode('utf8'))
-    resp = opener.open(req)
-    content = resp.read().decode('gbk')
-    if content != 'ok':
-        print(content)
-        return False
+    data = urlencode({
+        'username': username,
+        'password': md5(password).hexdigest(),
+        'drop': 0,
+        'type': 1,
+        'n': 100
+        })
+    req = Request('http://net.tsinghua.edu.cn/cgi-bin/do_login', data.encode())
+    resp = urlopen(req).read().decode()
+    if(resp.startswith("password_error")):
+        return "password error!" 
+    elif(resp == "username_error"):
+        return "username error!"
     else:
         return True
 
@@ -52,7 +50,7 @@ def setuser():
         _store(d)
         print("config ok.")
     else:
-        print("Failed, retry")
+        print("Failed, " + res + "retry")
 
 def show():
     print(_load())

@@ -18,8 +18,10 @@ class Usereg:
     def __init__(self, username, password):
         cj = CookieJar()
         self.opener = build_opener(HTTPCookieProcessor(cj))
-        self.login(username, password)
-
+        try:
+            self.login(username, password)
+        except Exception :
+            exit(0)
     def login(self, username, password):
         self.username = username
         self.password = md5(password).hexdigest()
