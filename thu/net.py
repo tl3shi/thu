@@ -42,7 +42,7 @@ def format_byte(n):
         return f(1e6, 'M')
     if(n > 1e3):
         return f(1e3, 'K')
-    return n + 'B'
+    return str(n) + 'B'
 
 def check():
     req = Request('http://net.tsinghua.edu.cn/cgi-bin/do_login', b'action=check_online')
